@@ -10,130 +10,197 @@
 <meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
-  /* One theme per visitor (follows the system), one accent, pill buttons. */
+  /* Studio hardware: brushed aluminium, graphite, one signal blue.
+     The oscilloscope line is the single expressive element. */
   :root {
-    --bg: #fafafa;
-    --text: #18181b;
-    --muted: #5f5f67;
-    --line: #e4e4e7;
-    --accent: #c6ef4a;
-    --on-accent: #141a00;
-    --link: #3f5600;
-    }
+    --bg: #eceef1;
+    --panel: #f6f7f9;
+    --ink: #1b1d22;
+    --muted: #5e636d;
+    --line: #d2d6dc;
+    --signal: #2a46d6;
+    --on-signal: #f6f7f9;
+  }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0f0f11;
-      --text: #ededee;
-      --muted: #9b9ba3;
-      --line: #232327;
-      --link: #d4f56a;
+      --bg: #15171b;
+      --panel: #1c1f24;
+      --ink: #e7e9ed;
+      --muted: #979ca6;
+      --line: #2b2f36;
+      --signal: #8fa3ff;
+      --on-signal: #121420;
     }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; }
   body {
-    background: var(--bg); color: var(--text);
-    font: 17px/1.6 Geist, ui-sans-serif, system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--ink);
+    font: 17px/1.6 "Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     min-height: 100dvh; display: flex; flex-direction: column;
   }
-  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 32px; }
   a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 4px; }
+  .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 40px; }
 
-  header .wrap { height: 72px; display: flex; align-items: center; justify-content: space-between; }
-  .brand { font-weight: 600; letter-spacing: -.01em; text-decoration: none; font-size: 17px; }
-  .nav-link { color: var(--muted); text-decoration: none; font-size: 15px; transition: color .2s; }
-  .nav-link:hover { color: var(--text); }
+  /* Top bar */
+  .top { height: 76px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 800; font-size: 18px; letter-spacing: -.02em; text-decoration: none; }
+  .top a.mail { font-size: 15px; color: var(--muted); text-decoration: none; }
+  .top a.mail:hover { color: var(--ink); }
 
-  .hero { padding: 120px 0 120px; }
+  /* Hero */
+  .hero { padding-top: 72px; }
   h1 {
-    font-size: clamp(40px, 6vw, 68px); line-height: 1.02; font-weight: 600;
-    letter-spacing: -.035em; max-width: 12ch;
+    font-weight: 800; letter-spacing: -.045em; line-height: .95;
+    font-size: clamp(48px, 8.4vw, 116px);
   }
-  .lead { margin-top: 24px; font-size: 19px; color: var(--muted); max-width: 46ch; }
+  .scope { display: block; width: 100%; height: 168px; margin: 28px 0 8px; }
+  .hero-body {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 72px; align-items: start; padding-top: 32px;
+  }
+  .lead { font-size: 21px; line-height: 1.5; max-width: 30ch; }
+  .lead + p { margin-top: 16px; color: var(--muted); max-width: 40ch; }
   .cta {
-    display: inline-flex; align-items: center; gap: 10px; margin-top: 36px;
-    background: var(--accent); color: var(--on-accent); text-decoration: none;
-    font-weight: 500; font-size: 16px; padding: 13px 22px; border-radius: 999px;
-    white-space: nowrap; transition: transform .2s cubic-bezier(.16, 1, .3, 1), filter .2s;
+    display: inline-block; margin-top: 36px; padding: 14px 24px; border-radius: 999px;
+    background: var(--signal); color: var(--on-signal); text-decoration: none;
+    font-weight: 600; font-size: 16px; white-space: nowrap;
+    transition: transform .15s ease, filter .15s ease;
   }
-  .cta:hover { filter: brightness(1.04); transform: translateY(-1px); }
-  .cta:active { transform: translateY(1px) scale(.98); }
-  .cta span { transition: transform .2s cubic-bezier(.16, 1, .3, 1); }
-  .cta:hover span { transform: translateX(3px); }
+  .cta:hover { filter: brightness(1.08); }
+  .cta:active { transform: scale(.98); }
 
+  .thumb {
+    display: block; text-decoration: none; border-radius: 12px; overflow: hidden;
+    background: #0d0e10; border: 1px solid var(--line);
+    box-shadow: 0 28px 60px -32px rgba(20, 24, 40, .55);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .thumb:hover { transform: translateY(-3px); box-shadow: 0 36px 70px -32px rgba(20, 24, 40, .65); }
+  .thumb-bar {
+    height: 34px; display: flex; align-items: center; padding: 0 14px;
+    background: #1a1b1f; border-bottom: 1px solid #27292e;
+    font-size: 12.5px; color: #a3a6ad;
+  }
+  .thumb-bar span { flex: 1; text-align: center; margin-right: 42px; }
+  .thumb-bar i { width: 8px; height: 8px; border-radius: 50%; background: #3a3d44; margin-right: 6px; }
+  .thumb img { display: block; width: 100%; height: auto; }
 
-  .company { padding: 64px 0 96px; border-top: 1px solid var(--line); }
-  .company .wrap { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
-  h2 { font-size: 28px; line-height: 1.15; font-weight: 600; letter-spacing: -.02em; }
-  .company p.note { margin-top: 12px; color: var(--muted); font-size: 16px; max-width: 32ch; }
-  dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 40px; }
+  /* Product */
+  .product { margin-top: 120px; padding: 96px 0; background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .product .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 72px; }
+  h2 { font-size: clamp(30px, 3.4vw, 44px); font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
+  .product .intro p { margin-top: 18px; color: var(--muted); max-width: 34ch; }
+  .cap { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .cap:last-child { border-bottom: 1px solid var(--line); }
+  .cap h3 { font-size: 19px; font-weight: 600; letter-spacing: -.01em; }
+  .cap p { color: var(--muted); max-width: 52ch; }
+  .product .intro p.platforms { margin-top: 28px; font-size: 15px; }
+
+  /* Company */
+  .company { padding: 96px 0 104px; }
+  .company .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 72px; }
+  dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 48px; }
   dt { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
-  dd { font-size: 17px; }
+  dd { font-size: 18px; line-height: 1.5; }
   address { font-style: normal; }
-  dd a { text-decoration-color: var(--link); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: color .2s; }
-  dd a:hover { color: var(--link); }
+  dd a { text-decoration-color: var(--signal); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+  dd a:hover { color: var(--signal); }
 
   footer { margin-top: auto; border-top: 1px solid var(--line); }
-  footer .wrap { height: 72px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; color: var(--muted); }
-  footer a { text-decoration: none; }
-  footer a:hover { color: var(--text); }
+  footer .wrap { height: 72px; display: flex; align-items: center; font-size: 14px; color: var(--muted); }
 
-  @media (max-width: 767px) {
+  @media (max-width: 900px) {
     .wrap { padding: 0 20px; }
-    .hero { padding: 64px 0 72px; }
-    .lead { font-size: 17px; }
-    .company { padding: 48px 0 64px; }
-    .company .wrap { grid-template-columns: 1fr; gap: 32px; }
+    .top a.mail { font-size: 14px; }
+    .hero { padding-top: 40px; }
+    .scope { height: 120px; margin-top: 20px; }
+    .hero-body, .product .wrap, .company .wrap { grid-template-columns: 1fr; gap: 40px; }
+    .lead { font-size: 19px; }
+    .product { margin-top: 80px; padding: 64px 0; }
+    .cap { grid-template-columns: 1fr; gap: 6px; padding: 20px 0; }
+    .company { padding: 64px 0 72px; }
     dl { grid-template-columns: 1fr; gap: 24px; }
-    footer .wrap { height: auto; padding-top: 20px; padding-bottom: 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; }
+    .cta, .thumb { transition: none; }
   }
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <a class="brand" href="/">ABXO Digital</a>
-    <a class="nav-link" href="mailto:hello@abxodigital.com">Contact</a>
-  </div>
+<header class="wrap top">
+  <a class="brand" href="/">ABXO Digital</a>
+  <a class="mail" href="mailto:hello@abxodigital.com">hello@abxodigital.com</a>
 </header>
 
 <main>
   <section class="hero">
     <div class="wrap">
-      <h1>Software for music producers.</h1>
-      <p class="lead">We make Odyssey Studio, an AI assistant that works inside Ableton Live, on macOS and Windows.</p>
-      <a class="cta" href="https://odyssey-studio.app">Visit Odyssey Studio <span aria-hidden="true">&rarr;</span></a>
+      <h1>Software for<br>music producers.</h1>
+      <canvas class="scope" id="scope" aria-hidden="true"></canvas>
+      <div class="hero-body">
+        <div>
+          <p class="lead">We build tools that work where producers already work: inside the session.</p>
+          <p>Our first product, Odyssey Studio, is an AI production assistant that lives in Ableton Live.</p>
+          <a class="cta" href="https://odyssey-studio.app">Visit Odyssey Studio</a>
+        </div>
+        <div>
+          <a class="thumb" href="https://odyssey-studio.app" aria-label="Open the Odyssey Studio website">
+            <div class="thumb-bar"><i></i><i></i><i></i><span>odyssey-studio.app</span></div>
+            <img src="odyssey-studio-home.png" width="1440" height="900" alt="The Odyssey Studio homepage">
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="product" aria-labelledby="product-title">
+    <div class="wrap">
+      <div class="intro">
+        <h2 id="product-title">Odyssey Studio</h2>
+        <p>Producers talk to their Live session in plain words. Odyssey reads it, proposes, and makes the change once they say yes.</p>
+        <p class="platforms">Ableton Live 11 and 12, on macOS and Windows.</p>
+      </div>
+      <div>
+        <div class="cap">
+          <h3>Create</h3>
+          <p>Proposes a melody, a groove, a bassline or the missing section, then writes the one the producer picks into the session.</p>
+        </div>
+        <div class="cap">
+          <h3>Fix</h3>
+          <p>Reads the whole session and names what is wrong, from levels in the red to a bass left in stereo, with the fix ready to apply.</p>
+        </div>
+        <div class="cap">
+          <h3>Listen</h3>
+          <p>Analyses the audio itself: peaks and loudness, key and tempo, energy per band, and where two sounds fight for the same space.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="company" aria-labelledby="company-title">
     <div class="wrap">
-      <div>
-        <h2 id="company-title">Company details</h2>
-        <p class="note">ABXO Digital LLC is a limited liability company registered in the United States.</p>
-      </div>
+      <h2 id="company-title">Company details</h2>
       <dl>
         <div>
           <dt>Legal name</dt>
           <dd>ABXO Digital LLC</dd>
         </div>
         <div>
-          <dt>Product</dt>
-          <dd><a href="https://odyssey-studio.app">Odyssey Studio</a></dd>
+          <dt>Contact</dt>
+          <dd><a href="mailto:hello@abxodigital.com">hello@abxodigital.com</a></dd>
         </div>
         <div>
           <dt>Registered address</dt>
           <dd><address>30 N Gould St, STE R<br>Sheridan, WY 82801<br>United States</address></dd>
         </div>
         <div>
-          <dt>Contact</dt>
-          <dd><a href="mailto:hello@abxodigital.com">hello@abxodigital.com</a></dd>
+          <dt>Product</dt>
+          <dd><a href="https://odyssey-studio.app">odyssey-studio.app</a></dd>
         </div>
       </dl>
     </div>
@@ -141,9 +208,47 @@
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>&copy; 2026 ABXO Digital LLC</span>
-  </div>
+  <div class="wrap">&copy; 2026 ABXO Digital LLC</div>
 </footer>
+
+<script>
+  // The oscilloscope: a few summed partials under a slow envelope, drawn in
+  // the signal colour. It drifts gently; with reduced motion it holds still.
+  (() => {
+    const c = document.getElementById('scope');
+    const ctx = c.getContext('2d');
+    const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w = 0, h = 0, t = 0;
+    const size = () => {
+      const r = devicePixelRatio || 1;
+      w = c.clientWidth; h = c.clientHeight;
+      c.width = w * r; c.height = h * r;
+      ctx.setTransform(r, 0, 0, r, 0, 0);
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      const mid = h / 2;
+      ctx.globalAlpha = .6; ctx.lineWidth = 1; ctx.strokeStyle = css('--line');
+      ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(w, mid); ctx.stroke();
+      ctx.globalAlpha = 1; ctx.lineWidth = 1.6; ctx.strokeStyle = css('--signal'); ctx.lineJoin = 'round';
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += 2) {
+        const u = x / w;
+        const env = Math.sin(Math.PI * u) ** 1.6 * (0.55 + 0.45 * Math.sin(u * 7.3 + t * 0.6));
+        const y = Math.sin(u * 38 + t * 2.1) * 0.55
+                + Math.sin(u * 91 - t * 3.3) * 0.22
+                + Math.sin(u * 17 + t * 0.9) * 0.23;
+        const py = mid + y * env * (h * 0.44);
+        x ? ctx.lineTo(x, py) : ctx.moveTo(x, py);
+      }
+      ctx.stroke();
+    };
+    const loop = () => { t += 0.006; draw(); requestAnimationFrame(loop); };
+    size(); addEventListener('resize', () => { size(); draw(); });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+    still ? draw() : loop();
+  })();
+</script>
 </body>
 </html>
