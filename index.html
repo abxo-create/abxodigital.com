@@ -4,61 +4,166 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ABXO Digital LLC</title>
-<meta name="description" content="ABXO Digital LLC builds software for music producers. Publisher of Odyssey Studio.">
+<meta name="description" content="ABXO Digital LLC builds software for music producers, including Odyssey Studio for Ableton Live.">
+<meta property="og:title" content="ABXO Digital LLC">
+<meta property="og:description" content="Software for music producers. Makers of Odyssey Studio for Ableton Live.">
+<meta property="og:image" content="https://abxodigital.com/odyssey-studio.jpg">
+<meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* One theme per visitor (follows the system), one accent, one shape rule:
+     interactive elements are pills, media is 14px. */
   :root {
-    --bg: #0e0f11;
-    --text: #ececec;
-    --muted: #9a9ca3;
-    --line: #26282d;
-    --accent: #d7ff5a;
+    --bg: #fafafa;
+    --text: #18181b;
+    --muted: #5f5f67;
+    --line: #e4e4e7;
+    --accent: #c6ef4a;
+    --on-accent: #141a00;
+    --link: #3f5600;
+    --shadow: 0 30px 80px -30px rgba(24, 24, 27, .35);
   }
-  @media (prefers-color-scheme: light) {
-    :root { --bg: #fafaf8; --text: #16171a; --muted: #62646b; --line: #e3e3df; --accent: #4a5d00; }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f11;
+      --text: #ededee;
+      --muted: #9b9ba3;
+      --line: #232327;
+      --link: #d4f56a;
+      --shadow: 0 30px 80px -30px rgba(0, 0, 0, .8);
+    }
   }
-  * { box-sizing: border-box; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     background: var(--bg); color: var(--text);
-    font: 16px/1.6 Inter, system-ui, -apple-system, sans-serif;
-    min-height: 100vh; display: flex; flex-direction: column;
+    font: 17px/1.6 Geist, ui-sans-serif, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh; display: flex; flex-direction: column;
   }
-  main { flex: 1; width: 100%; max-width: 640px; margin: 0 auto; padding: 96px 24px 48px; }
-  .mark { font-weight: 600; letter-spacing: .14em; font-size: 13px; color: var(--muted); }
-  h1 { font-size: 40px; line-height: 1.15; font-weight: 600; margin: 20px 0 16px; letter-spacing: -.02em; }
-  p.lead { font-size: 18px; color: var(--muted); }
-  section { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); }
-  h2 { font-size: 13px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-  a { color: var(--text); text-decoration-color: var(--accent); text-underline-offset: 3px; }
-  a:hover { color: var(--accent); }
+  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; }
+
+  header .wrap { height: 72px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 600; letter-spacing: -.01em; text-decoration: none; font-size: 17px; }
+  .nav-link { color: var(--muted); text-decoration: none; font-size: 15px; transition: color .2s; }
+  .nav-link:hover { color: var(--text); }
+
+  .hero { padding-top: 88px; }
+  h1 {
+    font-size: clamp(40px, 6vw, 68px); line-height: 1.02; font-weight: 600;
+    letter-spacing: -.035em; max-width: 12ch;
+  }
+  .lead { margin-top: 24px; font-size: 19px; color: var(--muted); max-width: 46ch; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 36px;
+    background: var(--accent); color: var(--on-accent); text-decoration: none;
+    font-weight: 500; font-size: 16px; padding: 13px 22px; border-radius: 999px;
+    white-space: nowrap; transition: transform .2s cubic-bezier(.16, 1, .3, 1), filter .2s;
+  }
+  .cta:hover { filter: brightness(1.04); transform: translateY(-1px); }
+  .cta:active { transform: translateY(1px) scale(.98); }
+  .cta span { transition: transform .2s cubic-bezier(.16, 1, .3, 1); }
+  .cta:hover span { transform: translateX(3px); }
+
+  /* The product shot starts under the text column and runs past the right
+     edge of the content on wide screens. */
+  .shot { margin-top: 72px; padding-left: 12%; }
+  .shot img {
+    display: block; width: 112%; max-width: none; height: auto;
+    border-radius: 14px; border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .shot-wrap { overflow-x: clip; padding-bottom: 24px; }
+
+  .company { margin-top: 64px; padding: 64px 0 96px; border-top: 1px solid var(--line); }
+  .company .wrap { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
+  h2 { font-size: 28px; line-height: 1.15; font-weight: 600; letter-spacing: -.02em; }
+  .company p.note { margin-top: 12px; color: var(--muted); font-size: 16px; max-width: 32ch; }
+  dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 40px; }
+  dt { font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+  dd { font-size: 17px; }
   address { font-style: normal; }
-  footer { max-width: 640px; width: 100%; margin: 0 auto; padding: 24px; font-size: 13px; color: var(--muted); }
-  @media (max-width: 480px) { main { padding-top: 64px; } h1 { font-size: 32px; } }
+  dd a { text-decoration-color: var(--link); text-decoration-thickness: 1.5px; text-underline-offset: 4px; transition: color .2s; }
+  dd a:hover { color: var(--link); }
+
+  footer { margin-top: auto; border-top: 1px solid var(--line); }
+  footer .wrap { height: 72px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; color: var(--muted); }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  @media (max-width: 767px) {
+    .wrap { padding: 0 20px; }
+    .hero { padding-top: 48px; }
+    .lead { font-size: 17px; }
+    .shot { margin-top: 48px; padding-left: 20px; }
+    .shot img { width: 100%; border-radius: 10px; }
+    .company { padding: 48px 0 64px; }
+    .company .wrap { grid-template-columns: 1fr; gap: 32px; }
+    dl { grid-template-columns: 1fr; gap: 24px; }
+    footer .wrap { height: auto; padding-top: 20px; padding-bottom: 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <div class="mark">ABXO DIGITAL</div>
-  <h1>Software for music producers.</h1>
-  <p class="lead">ABXO Digital LLC is a software company. We build and publish <a href="https://odyssey-studio.app">Odyssey Studio</a>, an AI production assistant for Ableton Live, available for macOS and Windows.</p>
+<header>
+  <div class="wrap">
+    <a class="brand" href="/">ABXO Digital</a>
+    <a class="nav-link" href="mailto:hello@abxodigital.com">Contact</a>
+  </div>
+</header>
 
-  <section>
-    <h2>Company</h2>
-    <address>
-      ABXO Digital LLC<br>
-      30 N Gould St, STE R<br>
-      Sheridan, WY 82801<br>
-      United States
-    </address>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Software for music producers.</h1>
+      <p class="lead">We make Odyssey Studio, an AI assistant that works inside Ableton Live, on macOS and Windows.</p>
+      <a class="cta" href="https://odyssey-studio.app">Visit Odyssey Studio <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="shot-wrap">
+      <div class="wrap shot">
+        <img src="odyssey-studio.jpg" width="2560" height="1600"
+             alt="Odyssey Studio, connected to Ableton Live, suggesting ways to create and fix a track.">
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>Contact</h2>
-    <p><a href="mailto:hello@abxodigital.com">hello@abxodigital.com</a></p>
+  <section class="company" aria-labelledby="company-title">
+    <div class="wrap">
+      <div>
+        <h2 id="company-title">Company details</h2>
+        <p class="note">ABXO Digital LLC is a limited liability company registered in the United States.</p>
+      </div>
+      <dl>
+        <div>
+          <dt>Legal name</dt>
+          <dd>ABXO Digital LLC</dd>
+        </div>
+        <div>
+          <dt>Product</dt>
+          <dd><a href="https://odyssey-studio.app">Odyssey Studio</a></dd>
+        </div>
+        <div>
+          <dt>Registered address</dt>
+          <dd><address>30 N Gould St, STE R<br>Sheridan, WY 82801<br>United States</address></dd>
+        </div>
+        <div>
+          <dt>Contact</dt>
+          <dd><a href="mailto:hello@abxodigital.com">hello@abxodigital.com</a></dd>
+        </div>
+      </dl>
+    </div>
   </section>
 </main>
-<footer>© 2026 ABXO Digital LLC</footer>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 ABXO Digital LLC</span>
+  </div>
+</footer>
 </body>
 </html>
